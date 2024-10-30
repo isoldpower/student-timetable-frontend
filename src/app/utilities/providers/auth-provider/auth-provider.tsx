@@ -1,8 +1,11 @@
 'use client';
 
-import {createContext, ReactNode, useMemo, useState} from "react";
+import {createContext, ReactNode, useEffect, useMemo, useState} from "react";
 import {BasicUser} from "@/entities/auth";
 import {useAuth} from "./useAuth";
+import useSWR from "swr";
+import {apiRoutes} from "@/app/routing";
+import {fetchUser} from "@/app/utilities/providers/auth-provider/api-layer";
 
 export interface AuthContextPayload {
     isAuthenticated: boolean;
@@ -10,7 +13,7 @@ export interface AuthContextPayload {
     user: BasicUser | null;
     login: (email: string, password: string) => Promise<boolean>;
     logout: () => Promise<void>;
-    signup: (email: string, preferredName: string, password: string) => Promise<boolean>;
+    signup: (data: SignupRequest) => Promise<boolean>;
 }
 
 export const AuthProviderContext = createContext<AuthContextPayload>({
@@ -33,13 +36,10 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({children}: AuthProviderProps) {
-    const [initialRender, setInitialRender] = useState(false);
     const auth = useAuth();
 
-    const value: AuthContextPayload = useMemo(() => ({ ...auth, initialRender }), [auth, initialRender]);
-
     return (
-        <AuthProviderContext.Provider value={value}>
+        <AuthProviderContext.Provider value={auth}>
             {children}
         </AuthProviderContext.Provider>
     )

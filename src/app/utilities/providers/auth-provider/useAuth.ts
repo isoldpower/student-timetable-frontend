@@ -1,27 +1,78 @@
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {BasicUser} from "@/entities/auth";
+import {fetchUser, requestLogout} from "./api-layer";
+import {useTokenRotation} from "@/app/utilities/providers/auth-provider/useTokenRotation";
 
 export const useAuth = () => {
+    const { accessToken, logout: tokenLogout, login: tokenLogin, signup: tokenSignup } = useTokenRotation();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [user, setUser] = useState<BasicUser | null>(null);
+    const [data, setData] = useState<BasicUser | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const fetch = async () => {
+        const user = await fetchUser(accessToken);
+
+        if (user) {
+            const basicUser: BasicUser = {
+                ...user,
+                id: user?.pk?.toString() || '',
+                type: 'student',
+                preferredName: `${user?.first_name} ${user?.last_name}`
+            };
+            setData(basicUser || null);
+        } else {
+            setData(null);
+        }
+
+        setIsAuthenticated(!!user);
+    }
 
     const login = useCallback(async (email: string, password: string): Promise<boolean> => {
-        return false;
-    }, []);
+        const response = await tokenLogin({ email, password });
+        const fetchResult = fetch();
+
+        return !!response && !!fetchResult;
+    }, [tokenLogin]);
 
     const logout = useCallback(async (): Promise<void> => {
+        await requestLogout(accessToken || '');
+        await tokenLogout();
+        setData(null);
+        setIsAuthenticated(false);
+    }, [accessToken]);
 
+    const signup = useCallback(async (data: SignupRequest): Promise<boolean> => {
+        const response = await tokenSignup(data);
+
+        if (response) {
+            const basicUser: BasicUser = {
+                ...response,
+                id: response.pk?.toString() || '',
+                type: 'student',
+                preferredName: `${response.first_name} ${response.last_name}`
+            };
+            setData(basicUser);
+        }
+
+        setIsAuthenticated(!!response);
+        return !!response;
     }, []);
 
-    const signup = useCallback(async (email: string, preferredName: string, password: string): Promise<boolean> => {
-        return false;
-    }, []);
+    useEffect(() => {
+        if (accessToken) {
+            fetch().then(() => setIsLoading(false));
+        } else {
+            setIsLoading(false);
+        }
+    }, [accessToken]);
 
     return useMemo(() => ({
         isAuthenticated,
-        user,
+        user: data,
         login,
         logout,
-        signup
-    }), [isAuthenticated, login, logout, signup, user]);
+        signup,
+        accessToken,
+        initialRender: !isLoading
+    }), [isAuthenticated, login, logout, signup, data, isLoading, accessToken]);
 }

@@ -10,7 +10,7 @@ interface AuthRedirectObserverProps {
     destination?: string;
 }
 
-export function AuthRedirectObserver ({ children, destination = websiteRoutes.home }: AuthRedirectObserverProps) {
+export function AuthRedirectObserver ({ destination = websiteRoutes.home }: AuthRedirectObserverProps) {
     const auth = useAuthContext();
 
     useEffect(() => {
@@ -21,5 +21,5 @@ export function AuthRedirectObserver ({ children, destination = websiteRoutes.ho
         }
     }, [auth.initialRender, auth.user]);
 
-    return children;
+    return <div>Loading...</div>;
 }

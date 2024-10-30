@@ -2,8 +2,9 @@
 
 import {useAuthContext} from "@/app/utilities";
 import {ReactNode} from "react";
-import {usePathname} from "next/navigation";
+import {redirect, usePathname} from "next/navigation";
 import {AuthRedirectObserver} from "@/features/auth/auth-redirect-observer";
+import {websiteRoutes} from "@/app/routing";
 
 interface PrivateRouteProps {
     children: ReactNode;
@@ -21,5 +22,8 @@ export function PrivateRoute({ children }: PrivateRouteProps) {
         );
     }
 
-    return (isAuthenticated && user) ? children : null;
+    if (isAuthenticated && user) return children;
+
+    const url = new URLSearchParams({redirect: location}).toString();
+    redirect(websiteRoutes.auth.login + '?' + url);
 }
