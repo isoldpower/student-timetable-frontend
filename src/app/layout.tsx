@@ -4,6 +4,7 @@ import {ReactNode} from "react";
 import {ThemeProvider} from "./utilities/providers";
 import {AppFooter, AppHeader} from "@/widgets/general";
 import {MainGutter} from "@/shared/utils/main-gutter";
+import {AuthProvider} from "@/app/utilities/providers/auth-provider/auth-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,11 +25,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
         >
-            <AppHeader />
-            <MainGutter className='min-h-screen'>
-                {children}
-            </MainGutter>
-            <AppFooter />
+            <AuthProvider>
+                <AppHeader />
+                <MainGutter className='min-h-screen'>
+                    {children}
+                </MainGutter>
+                <AppFooter />
+            </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

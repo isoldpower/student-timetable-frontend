@@ -1,5 +1,9 @@
+import {PrivateRoute} from "@/features/auth";
+
 export default function Home() {
   return (
-      <div>hello, world</div>
+      <PrivateRoute>
+        hello, world
+      </PrivateRoute>
   );
 }

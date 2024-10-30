@@ -10,6 +10,7 @@ import {
 } from "@/shared/ui-toolkit/card"
 import { Input } from "@/shared/ui-toolkit/input"
 import { Label } from "@/shared/ui-toolkit/label"
+import {websiteRoutes} from "@/app/routing";
 
 export function LoginForm() {
   return (
@@ -27,7 +28,7 @@ export function LoginForm() {
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="johndoe@webster.edu"
               required
             />
           </div>
@@ -43,13 +44,10 @@ export function LoginForm() {
           <Button type="submit" className="w-full">
             Login
           </Button>
-          <Button variant="outline" className="w-full">
-            Login with Google
-          </Button>
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="#" className="underline">
+          <Link href={websiteRoutes.auth.signup} className="underline">
             Sign up
           </Link>
         </div>

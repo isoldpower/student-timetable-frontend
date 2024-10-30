@@ -1,2 +1,2 @@
 export {MainGutter, IgnoreMainGutter} from './main-gutter';
-export {ExcludeHeader} from './exclude-header';
+export {ExcludeHeader, ExcludeLayout, ExcludeFooter} from './exclude-layout';
