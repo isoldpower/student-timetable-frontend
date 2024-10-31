@@ -5,6 +5,7 @@ import {ThemeProvider} from "./utilities/providers";
 import {AppFooter, AppHeader} from "@/widgets/general";
 import {MainGutter} from "@/shared/utils/main-gutter";
 import {AuthProvider} from "@/app/utilities/providers/auth-provider/auth-provider";
+import {Toaster} from "@/shared/ui-toolkit";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,6 +33,7 @@ export default function RootLayout({
                 </MainGutter>
                 <AppFooter />
             </AuthProvider>
+            <Toaster />
         </ThemeProvider>
       </body>
     </html>
