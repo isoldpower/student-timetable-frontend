@@ -44,14 +44,14 @@ export default function Home() {
                     </>
                 )}
                 {/*{user?.type == 'advisor' && (*/}
-                    <>
+                    <div className='flex flex-col gap-32'>
                         <section id='student'>
                             <EditStudentView />
                         </section>
                         <section id='dataset'>
                             <SearchCourses />
                         </section>
-                    </>
+                    </div>
                 {/*)}*/}
             </div>
         // </PrivateRoute>

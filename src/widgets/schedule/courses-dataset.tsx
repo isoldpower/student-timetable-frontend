@@ -29,7 +29,7 @@ export function CoursesDataset() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-                <Label htmlFor="search">Search Courses</Label>
+                <Label className='text-2xl' htmlFor="search">Search Courses</Label>
                 <Controller
                     name="search"
                     control={control}

@@ -38,7 +38,7 @@ export function SearchCourses() {
     return (
         <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-                <Label htmlFor="search">Search Courses</Label>
+                <Label className='text-2xl' htmlFor="search">Search Courses</Label>
                 <div className='flex gap-2'>
                     <Input
                         className='flex-grow'
