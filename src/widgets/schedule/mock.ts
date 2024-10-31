@@ -1,4 +1,5 @@
 import {RatedCourse, ScheduleCourse} from "@/entities/schedule";
+import {StudentUser} from "@/entities/auth";
 
 export const currentScheduleMock: ScheduleCourse[] = [
     {
@@ -187,3 +188,39 @@ export const currentLikedCourses: RatedCourse[] = [
         liked: false
     }
 ]
+
+export const coursesMock: ScheduleCourse[] = Array.from({ length: 300 }).map((_, index) => ({
+    id: index.toString(),
+    title: `Course ${index}`,
+    description: 'An introduction to computer science with a focus on programming in Python and Java with an emphasis on problem solving and algorithm development.',
+    creditHours: 3,
+    location: 'Room 101',
+    time: '9:00 AM - 10:00 AM',
+    weekdays: 'MWF',
+    semester: 'Fall 2021'
+}));
+
+export const studentsMock: StudentUser[] = Array.from({ length: 300 }).map((_, index) => ({
+    id: index.toString(),
+    name: `Student ${index}`,
+    preferredName: `Name${index} Surname${index}`,
+    type: 'student',
+    preferences: {},
+    email: `namesurname${index}@webster.edu`
+}));
+
+
+export const studentTimetablesMock: Map<string, ScheduleCourse[]> = new Map();
+studentsMock.map((student, index) => {
+    studentTimetablesMock.set(student.id,
+        Array.from({ length: 4 }).map((_, index) => ({
+            id: index.toString(),
+            title: `Course ${index}`,
+            description: 'An introduction to computer science with a focus on programming in Python and Java with an emphasis on problem solving and algorithm development.',
+            creditHours: 3,
+            location: 'Room 101',
+            time: '9:00 AM - 10:00 AM',
+            weekdays: 'MWF',
+            semester: 'Fall 2021'
+        })));
+});

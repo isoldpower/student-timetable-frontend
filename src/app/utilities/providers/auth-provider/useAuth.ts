@@ -16,7 +16,7 @@ export const useAuth = () => {
             const basicUser: BasicUser = {
                 ...user,
                 id: user?.pk?.toString() || '',
-                type: 'student',
+                type: 'advisor',
                 preferredName: `${user?.first_name} ${user?.last_name}`
             };
             setData(basicUser || null);
@@ -48,7 +48,7 @@ export const useAuth = () => {
             const basicUser: BasicUser = {
                 ...response,
                 id: response.pk?.toString() || '',
-                type: 'student',
+                type: 'advisor',
                 preferredName: `${response.first_name} ${response.last_name}`
             };
             setData(basicUser);

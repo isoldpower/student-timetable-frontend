@@ -9,6 +9,10 @@ export type ScheduleCourse = {
     semester: string;
 }
 
+export type StockCourse = ScheduleCourse & {
+    amount: number;
+}
+
 export type RatedCourse = ScheduleCourse & {
     liked?: boolean;
 }

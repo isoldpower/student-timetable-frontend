@@ -13,3 +13,5 @@ export * from './sonner';
 export * from './tabs';
 export * from './pagination';
 export * from './radio-group';
+export * from './sortable-table';
+export * from './command';

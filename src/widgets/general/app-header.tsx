@@ -10,6 +10,7 @@ import {Clock} from "lucide-react";
 import Link from "next/link";
 import {websiteRoutes} from "@/app/routing";
 
+//TODO: Add hover card to show user details with shadcn Hover Card
 export function AppHeader() {
     const { user, logout } = useAuthContext();
 

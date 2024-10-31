@@ -6,7 +6,7 @@ interface CurrentScheduleItemProps extends BaseHTMLAttributes<HTMLDivElement> {
     course: ScheduleCourse;
 }
 
-export function CurrentScheduleItem ({ course, className, ...props }: CurrentScheduleItemProps) {
+export function CurrentScheduleItem ({ course, className,children, ...props }: CurrentScheduleItemProps) {
     return (
         <Card className={`${className} flex flex-col gap-2`} {...props}>
             <CardHeader>
@@ -20,6 +20,7 @@ export function CurrentScheduleItem ({ course, className, ...props }: CurrentSch
                 <p className="text-s text-muted-foreground">{course.weekdays}</p>
                 <p className="text-s text-muted-foreground">{course.semester}</p>
             </CardFooter>
+            {children}
         </Card>
     )
 }
